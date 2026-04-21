@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>2Care Voice Agent Demo</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <div>
+          <h1>2Care Voice Agent (Demo)</h1>
+          <p class="muted">Browser STT/TTS + Python agent over WebSocket. Languages: English · Hindi · Tamil</p>
+        </div>
+        <div class="status">
+          <span id="wsStatus" class="pill pill--offline">Disconnected</span>
+          <span id="sttStatus" class="pill pill--warn">STT: checking...</span>
+        </div>
+      </header>
+
+      <section class="panel">
+        <div class="grid">
+          <label>
+            <span>Patient ID</span>
+            <input id="patientId" value="patient_001" />
+          </label>
+          <label>
+            <span>Session ID</span>
+            <input id="sessionId" value="" placeholder="auto-generated if empty" />
+          </label>
+          <label>
+            <span>Backend WS URL</span>
+            <input id="wsUrl" value="ws://127.0.0.1:8000/ws" />
+          </label>
+          <label>
+            <span>STT Mode</span>
+            <select id="sttMode">
+              <option value="auto" selected>Auto (browser first)</option>
+              <option value="browser">Browser only</option>
+              <option value="backend">Backend only (Vosk)</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="row">
+          <button id="connectBtn">Connect</button>
+          <button id="disconnectBtn" disabled>Disconnect</button>
+          <div class="spacer"></div>
+          <button id="startBtn" disabled>Start (Speak)</button>
+          <button id="stopBtn" disabled>Stop</button>
+        </div>
+
+        <div class="row">
+          <input id="textInput" placeholder="Or type here (English/Hindi/Tamil) and press Send..." />
+          <button id="sendBtn" disabled>Send</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Conversation</h2>
+        <div id="log" class="log"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Latency</h2>
+        <div class="latGrid">
+          <div class="kv"><span class="k">speech_end → server_reply</span><span id="latClient" class="v">-</span></div>
+          <div class="kv"><span class="k">speech_end → first_audio_start</span><span id="latAudio" class="v">-</span></div>
+        </div>
+        <p class="muted">Server stage timings are streamed as trace events in the log.</p>
+      </section>
+
+      <footer class="footer muted">
+        Tip: Try “Book an appointment with cardiologist tomorrow afternoon”, or Hindi/Tamil equivalents.
+      </footer>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
+

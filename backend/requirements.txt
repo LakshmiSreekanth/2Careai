@@ -1,0 +1,11 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+python-dotenv==1.0.1
+pydantic==2.10.4
+redis==5.2.1
+httpx==0.27.2
+orjson==3.10.12
+langdetect==1.0.9
+python-dateutil==2.9.0.post0
+vosk==0.3.45
+python-multipart==0.0.20

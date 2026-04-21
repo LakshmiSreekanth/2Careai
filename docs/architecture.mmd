@@ -1,0 +1,39 @@
+flowchart LR
+  subgraph Web["Web Client (HTML/JS)"]
+    Mic["Mic audio"]
+    STT["Browser STT (Web Speech API)"]
+    TTS["Browser TTS (SpeechSynthesis)"]
+    UI["Transcript + Controls"]
+    Mic-->STT-->UI
+    UI-->TTS
+  end
+
+  subgraph API["Backend (Python/FastAPI)"]
+    WS["WebSocket /ws"]
+    Lang["Language detection (hi/ta/en)"]
+    Agent["LLM Agent (tool calling)"]
+    Tools["Scheduling tools"]
+    MemS["Session Memory (TTL)"]
+    MemP["Persistent Memory"]
+    Lat["Latency logger"]
+
+    WS-->Lang-->Agent-->WS
+    Agent-->Tools-->Agent
+    Agent<-->MemS
+    Agent<-->MemP
+    WS-->Lat
+  end
+
+  subgraph Data["Storage"]
+    Redis["Redis (preferred)"]
+    Sqlite["SQLite (fallback)"]
+  end
+
+  MemS-->Redis
+  MemP-->Redis
+  Tools-->Sqlite
+  MemS-->Sqlite
+  MemP-->Sqlite
+
+  Web<-->WS
+
