@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, File, UploadFile, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.stt import VoskSTT
+from .stt import VoskSTT
 
 
 def _now_ms() -> float:
@@ -214,5 +214,5 @@ def create_app() -> FastAPI:
 def run() -> None:
     host = os.getenv("HOST", "0.0.0.0")
     port = int(os.getenv("PORT", "8000"))
-    uvicorn.run("app.server:create_app", host=host, port=port, factory=True, reload=False)
+    uvicorn.run(create_app(), host=host, port=port, reload=False)
 

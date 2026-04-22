@@ -66,6 +66,16 @@ OLLAMA_MODEL=llama3.1
 REDIS_URL=redis://localhost:6379/0
 ```
 
+### Render Deploy (Backend)
+
+Use these settings on Render:
+
+- Language: `Python 3`
+- Build Command: `pip install -r backend/requirements.txt`
+- Start Command: `uvicorn backend.app.server:create_app --host 0.0.0.0 --port $PORT --factory`
+
+This repo includes `runtime.txt` to pin Python to a compatible version for dependencies.
+
 ### Docs
 
 - `docs/architecture.mmd`: architecture diagram source (Mermaid)
